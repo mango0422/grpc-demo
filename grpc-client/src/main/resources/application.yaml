@@ -4,3 +4,6 @@ spring:
 
 server:
   port: 8081
+
+armeria:
+  enabled: false

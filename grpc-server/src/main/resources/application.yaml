@@ -3,9 +3,17 @@ spring:
     name: grpc-server
 
 server:
-  port: 8080
+  port: 8080  # (선택) HTTP 포트. REST API 있으면 사용. 없으면 무시해도 됨
 
-grpc:
-  server:
-    port: 9090
-    reflection-service-enabled: true
+armeria:
+  ports:
+    - port: 9091            # gRPC용 포트
+      protocol:
+       - h2c
+       - http
+  graceful-shutdown-quiet-period-millis: 2000
+  graceful-shutdown-timeout-millis: 10000
+
+logging:
+  level:
+    baas.grpc.server.service: INFO
