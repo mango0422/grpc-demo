@@ -1,0 +1,6 @@
+dependencies {
+    implementation project (':proto-interface')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.linecorp.armeria:armeria-grpc'
+    implementation 'com.linecorp.armeria:armeria-spring-boot3-starter'
+}

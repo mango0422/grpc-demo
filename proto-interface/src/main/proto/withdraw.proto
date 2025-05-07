@@ -1,0 +1,19 @@
+syntax = "proto3";
+option java_package = "baas.grpc.account.withdraw";
+option java_multiple_files = true;
+
+service WithdrawService {
+  // 계정계 출금 RPC
+  rpc Withdraw(WithdrawRequest) returns (WithdrawResponse);
+}
+
+message WithdrawRequest {
+  string accountId = 1;
+  double amount    = 2;
+}
+
+message WithdrawResponse {
+  bool   success       = 1;
+  string transactionId = 2;
+  string message       = 3;
+}

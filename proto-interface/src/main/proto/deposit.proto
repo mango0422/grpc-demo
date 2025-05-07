@@ -1,0 +1,19 @@
+syntax = "proto3";
+option java_package = "baas.grpc.account.deposit";
+option java_multiple_files = true;
+
+service DepositService {
+  // 계정계 입금 RPC
+  rpc Deposit(DepositRequest) returns (DepositResponse);
+}
+
+message DepositRequest {
+  string accountId = 1;
+  double amount    = 2;
+}
+
+message DepositResponse {
+  bool   success       = 1;
+  string transactionId = 2;
+  string message       = 3;
+}

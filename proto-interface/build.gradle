@@ -1,0 +1,40 @@
+plugins {
+    id 'java-library'
+    id 'com.google.protobuf' version '0.9.5'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api "io.grpc:grpc-stub:1.70.0"
+    api "io.grpc:grpc-protobuf:1.70.0"
+    api "io.grpc:grpc-netty-shaded:1.70.0"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:3.24.0" }
+    plugins { grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.70.0" } }
+    generateProtoTasks.all().configureEach {
+        it.builtins { /* 기본 java */ }
+        it.plugins { grpc {} }
+    }
+}
+
+tasks.named('bootJar') {
+    enabled = false
+}
+
+tasks.named('jar') {
+    enabled = true
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/generated/sources/proto/main/grpc"
+            srcDir "$buildDir/generated/sources/proto/main/java"
+        }
+    }
+}

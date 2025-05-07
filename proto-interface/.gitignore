@@ -1,0 +1,6 @@
+build/*
+!build/generated/
+!build/generated/**
+.gradle/
+.idea/
+.env
