@@ -11,14 +11,22 @@ dependencies {
     api "io.grpc:grpc-stub:1.70.0"
     api "io.grpc:grpc-protobuf:1.70.0"
     api "io.grpc:grpc-netty-shaded:1.70.0"
+//    compileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
 }
 
 protobuf {
     protoc { artifact = "com.google.protobuf:protoc:3.24.0" }
     plugins { grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.70.0" } }
-    generateProtoTasks.all().configureEach {
-        it.builtins { /* 기본 java */ }
-        it.plugins { grpc {} }
+//    generateProtoTasks.all().configureEach {
+//        it.builtins { /* 기본 java */ }
+//        it.plugins { grpc {} }
+//    }
+    generateProtoTasks.all().configureEach { task ->
+        task.plugins {
+            grpc {
+                option "@generated=omit"
+            }
+        }
     }
 }
 
@@ -37,4 +45,8 @@ sourceSets {
             srcDir "$buildDir/generated/sources/proto/main/java"
         }
     }
+}
+
+tasks.named("processResources") {
+    dependsOn(tasks.named("generateProto"))
 }
